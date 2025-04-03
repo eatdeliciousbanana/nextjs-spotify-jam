@@ -10,7 +10,9 @@ export const GET = async (request: NextRequest) => {
     const cookieStore = await cookies();
     const storedState = cookieStore.get("spotify_auth_state")?.value;
 
-    if (state !== null && state === storedState) {
+    if (state === null || state !== storedState) {
+        throw new Error("state mismatch");
+    } else {
         cookieStore.delete("spotify_auth_state");
 
         if (code !== null) {
