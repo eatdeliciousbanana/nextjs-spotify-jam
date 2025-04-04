@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { Redis } from "@upstash/redis";
+import { Album, Artist } from "@/types/spotify";
 
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET as string;
@@ -111,14 +112,30 @@ const getAccessToken = async () => {
     return accessToken;
 };
 
-export const getArtist = async (id: string) => {
+export const getArtist = async (id: string): Promise<Artist> => {
     const token = await getAccessToken();
 
-    // const response = await axios({
-    //     method: "get",
-    //     url: `https://api.spotify.com/v1/artists/${id}`,
-    //     headers: {
-    //         Authorization: `Bearer ${token}`,
-    //     },
-    // });
+    const response = await axios({
+        method: "get",
+        url: `https://api.spotify.com/v1/artists/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data;
+};
+
+export const getArtistAlbums = async (id: string): Promise<Album[]> => {
+    const token = await getAccessToken();
+
+    const response = await axios({
+        method: "get",
+        url: `https://api.spotify.com/v1/artists/${id}/albums`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data.items;
 };
