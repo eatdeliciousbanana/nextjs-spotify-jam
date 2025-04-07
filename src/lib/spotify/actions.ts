@@ -6,12 +6,12 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const redirectToSpotify = async () => {
-    const generateRandomString = (length: number) => {
-        return crypto.randomBytes(60).toString("hex").slice(0, length);
-    };
+  const generateRandomString = (length: number) => {
+    return crypto.randomBytes(60).toString("hex").slice(0, length);
+  };
 
-    const state = generateRandomString(16);
-    (await cookies()).set("spotify_auth_state", state);
+  const state = generateRandomString(16);
+  (await cookies()).set("spotify_auth_state", state);
 
-    redirect(await getAuthorizeUrl(state));
+  redirect(await getAuthorizeUrl(state));
 };

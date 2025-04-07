@@ -8,19 +8,19 @@ services:
 
   serverless-redis-http:
     ports:
-      - '8079:80'
+      - "8079:80"
     image: hiett/serverless-redis-http:latest
     environment:
       SRH_MODE: env
       SRH_TOKEN: example_token
-      SRH_CONNECTION_STRING: 'redis://redis:6379'
+      SRH_CONNECTION_STRING: "redis://redis:6379"
 
   redis-commander:
     image: rediscommander/redis-commander:latest
     environment:
-    - REDIS_HOSTS=local:redis:6379
+      - REDIS_HOSTS=local:redis:6379
     ports:
-    - "8081:8081"
+      - "8081:8081"
 
 volumes:
   redis_data:
