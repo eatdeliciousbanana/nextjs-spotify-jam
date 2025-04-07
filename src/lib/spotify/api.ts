@@ -139,3 +139,17 @@ export const getArtistAlbums = async (id: string): Promise<Album[]> => {
 
     return response.data.items;
 };
+
+export const getAlbum = async (id: string): Promise<Album> => {
+    const token = await getAccessToken();
+
+    const response = await axios({
+        method: "get",
+        url: `https://api.spotify.com/v1/albums/${id}`,
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    return response.data;
+};
