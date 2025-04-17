@@ -1,11 +1,26 @@
+"use client";
+
 import { capitalize, getYear } from "@/lib/utils";
 import { Album } from "@/types/spotify";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const AlbumImage = ({ album }: { album: Album }) => {
+const AlbumImage = ({
+  album,
+  showArtist = false,
+}: {
+  album: Album;
+  showArtist?: boolean;
+}) => {
+  const router = useRouter();
+
   return (
-    <Link href={`/album/${album.id}`}>
+    <div
+      className="cursor-pointer"
+      onClick={() => {
+        router.push(`/album/${album.id}`);
+      }}
+    >
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-full bg-gray-100 rounded-xl dark:bg-gray-800">
           <Image
@@ -23,14 +38,25 @@ const AlbumImage = ({ album }: { album: Album }) => {
               {album.name}
             </h4>
             <span className="text-base text-gray-500 dark:text-gray-400">
-              {`${getYear(album.release_date)} • ${capitalize(
-                album.album_type
-              )}`}
+              {`${getYear(album.release_date)} • `}
+              {showArtist ? (
+                <span
+                  className="hover:underline"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/artist/${album.artists[0].id}`);
+                  }}
+                >
+                  {album.artists[0].name}
+                </span>
+              ) : (
+                capitalize(album.album_type)
+              )}
             </span>
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

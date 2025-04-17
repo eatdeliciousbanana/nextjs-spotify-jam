@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { Redis } from "@upstash/redis";
-import { Album, Artist } from "@/types/spotify";
+import { Album, Artist, SearchResult } from "@/types/spotify";
 
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET as string;
@@ -148,6 +148,31 @@ export const getAlbum = async (id: string): Promise<Album> => {
     url: `https://api.spotify.com/v1/albums/${id}`,
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const search = async (
+  q: string,
+  type: string
+): Promise<SearchResult> => {
+  if (!q || !["artist", "album", "track"].includes(type)) {
+    return {};
+  }
+
+  const token = await getAccessToken();
+
+  const response = await axios({
+    method: "get",
+    url: "https://api.spotify.com/v1/search",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: {
+      q: q,
+      type: type,
     },
   });
 

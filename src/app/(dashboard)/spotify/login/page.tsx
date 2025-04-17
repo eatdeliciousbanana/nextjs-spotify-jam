@@ -11,6 +11,7 @@ const Page = async () => {
       {isLogin ? (
         <Alert variant="success" title="You are logged in to Spotify.">
           <Button
+            type="button"
             size="sm"
             variant="primary"
             className="mt-4"
@@ -22,6 +23,7 @@ const Page = async () => {
       ) : (
         <Alert variant="warning" title="You are not logged in to Spotify.">
           <Button
+            type="button"
             size="sm"
             variant="primary"
             className="mt-4"

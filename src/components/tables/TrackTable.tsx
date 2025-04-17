@@ -6,11 +6,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SimplifiedTrack } from "@/types/spotify";
+import { SimplifiedTrack, Track } from "@/types/spotify";
 import { msToSec } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
 
-const TrackTable = ({ tracks }: { tracks: SimplifiedTrack[] }) => {
+const TrackTable = ({
+  tracks,
+  showImage = false,
+}: {
+  tracks: SimplifiedTrack[] | Track[];
+  showImage?: boolean;
+}) => {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
@@ -20,19 +27,19 @@ const TrackTable = ({ tracks }: { tracks: SimplifiedTrack[] }) => {
             <TableRow>
               <TableCell
                 isHeader
-                className="w-10 md:w-16 pl-5 md:pr-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
+                className="w-10 md:w-16 pl-5 md:pr-2 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
               >
                 #
               </TableCell>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
+                className="px-4 py-3 font-medium text-gray-500 text-start text-sm dark:text-gray-400"
               >
                 Title
               </TableCell>
               <TableCell
                 isHeader
-                className="px-5 py-3 font-medium text-gray-500 text-end text-sm dark:text-gray-400"
+                className="px-4 py-3 font-medium text-gray-500 text-end text-sm dark:text-gray-400"
               >
                 Duration
               </TableCell>
@@ -43,8 +50,22 @@ const TrackTable = ({ tracks }: { tracks: SimplifiedTrack[] }) => {
           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
             {tracks.map((track, key) => (
               <TableRow key={key}>
-                <TableCell className="pl-5 md:pr-5 py-4 text-gray-800 dark:text-white/90">
-                  {track.track_number}
+                <TableCell className="pl-5 md:pr-2 py-3">
+                  {showImage && "album" in track ? (
+                    <div className="w-13">
+                      <Image
+                        width={64}
+                        height={64}
+                        src={track.album.images[2]?.url}
+                        alt="album"
+                        className="rounded-xs"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-gray-800 dark:text-white/90">
+                      {track.track_number}
+                    </span>
+                  )}
                 </TableCell>
                 <TableCell className="px-4 py-3">
                   <div>

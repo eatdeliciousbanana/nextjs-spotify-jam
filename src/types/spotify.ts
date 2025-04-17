@@ -626,6 +626,18 @@ export interface ExternalUrls {
   spotify: string;
 }
 
+export interface SearchResult {
+  artists?: {
+    items: Artist[];
+  };
+  albums?: {
+    items: Album[];
+  };
+  tracks?: {
+    items: Track[];
+  };
+}
+
 export interface ArtistSearchResult {
   href: string;
   items: ArtistSearchResultItem[];
