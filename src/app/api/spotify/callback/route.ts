@@ -1,3 +1,4 @@
+import { setFlash } from "@/lib/flash";
 import { requestAccessToken } from "@/lib/spotify/api";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -17,6 +18,10 @@ export const GET = async (request: NextRequest) => {
 
     if (code !== null) {
       await requestAccessToken(code);
+
+      await setFlash("success", "Spotify account linked successfully.");
+    } else {
+      await setFlash("error", "Failed to link Spotify account.");
     }
   }
 
