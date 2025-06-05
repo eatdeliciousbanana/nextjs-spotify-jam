@@ -77,7 +77,7 @@ const TrackTable = ({
                         <Image
                           width={64}
                           height={64}
-                          src={track.album.images[2]?.url}
+                          src={track.album.images[2].url}
                           alt="album"
                           className="rounded-xs"
                         />
@@ -136,7 +136,7 @@ const TrackTable = ({
                   <Image
                     width={64}
                     height={64}
-                    src={modalData.track.album.images[2]?.url}
+                    src={modalData.track.album.images[2].url}
                     alt="album"
                     className="rounded-xs"
                   />

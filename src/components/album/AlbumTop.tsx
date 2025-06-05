@@ -12,7 +12,7 @@ const AlbumTop = ({ album }: { album: Album }) => {
             <Image
               width={640}
               height={640}
-              src={album.images[0]?.url}
+              src={album.images[0].url}
               alt="album"
             />
           </div>

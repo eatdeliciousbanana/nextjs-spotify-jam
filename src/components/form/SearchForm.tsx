@@ -4,7 +4,7 @@ import ComponentCard from "@/components/common/ComponentCard";
 import Form from "@/components/form/Form";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
-import Image from "next/image";
+import { SearchIcon } from "@/icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -77,11 +77,10 @@ const SearchForm = ({
           <div className="flex">
             <div className="px-2 py-2.5">
               <button type="submit">
-                <Image
+                <SearchIcon
                   width={26}
                   height={26}
-                  src="/images/icons/search.svg"
-                  alt="search"
+                  className="fill-gray-500 dark:fill-gray-400"
                 />
               </button>
             </div>

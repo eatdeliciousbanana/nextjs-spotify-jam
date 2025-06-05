@@ -1,3 +1,4 @@
+import { ArtistIcon } from "@/icons";
 import { Artist } from "@/types/spotify";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,13 +8,17 @@ const ArtistImage = ({ artist }: { artist: Artist }) => {
     <Link href={`/artist/${artist.id}`}>
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-full bg-gray-100 rounded-xl dark:bg-gray-800">
-          <Image
-            width={640}
-            height={640}
-            src={artist.images[0]?.url || "/images/artist/no-image.svg"}
-            alt="artist"
-            className="rounded-md"
-          />
+          {artist.images[0] ? (
+            <Image
+              width={640}
+              height={640}
+              src={artist.images[0].url}
+              alt="artist"
+              className="rounded-md"
+            />
+          ) : (
+            <ArtistIcon className="w-full h-full fill-gray-500 dark:fill-gray-400" />
+          )}
         </div>
 
         <div className="flex items-end justify-between mt-5">
