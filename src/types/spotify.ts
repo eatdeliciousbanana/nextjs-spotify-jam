@@ -1090,3 +1090,9 @@ export interface Queue {
   currently_playing: TrackItem | null;
   queue: TrackItem[];
 }
+
+export interface DashboardData {
+  playback: PlaybackState;
+  queue: Track[];
+  recent: Track[];
+}

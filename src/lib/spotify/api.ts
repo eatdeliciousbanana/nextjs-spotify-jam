@@ -2,7 +2,15 @@
 
 import axios from "axios";
 import { Redis } from "@upstash/redis";
-import { Album, Artist, SearchResult } from "@/types/spotify";
+import {
+  Album,
+  Artist,
+  DashboardData,
+  PlaybackState,
+  Queue,
+  RecentlyPlayedTracksPage,
+  SearchResult,
+} from "@/types/spotify";
 
 const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string;
 const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET as string;
@@ -177,4 +185,76 @@ export const search = async (
   });
 
   return response.data;
+};
+
+const getCurrentlyPlayingTrack = async (): Promise<PlaybackState> => {
+  const token = await getAccessToken();
+
+  const response = await axios({
+    method: "get",
+    url: "https://api.spotify.com/v1/me/player/currently-playing",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+const getQueue = async (): Promise<Queue> => {
+  const token = await getAccessToken();
+
+  const response = await axios({
+    method: "get",
+    url: "https://api.spotify.com/v1/me/player/queue",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+const getRecentlyPlayedTracks = async (): Promise<RecentlyPlayedTracksPage> => {
+  const token = await getAccessToken();
+
+  const response = await axios({
+    method: "get",
+    url: "https://api.spotify.com/v1/me/player/recently-played",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const getDashboardData = async (): Promise<DashboardData> => {
+  let dashboardData = await redis.get<DashboardData>("spotify_dashboard_data");
+
+  if (dashboardData) {
+    if (dashboardData.playback.is_playing) {
+      const ttlMs = await redis.pttl("spotify_dashboard_data");
+      dashboardData.playback.progress_ms =
+        dashboardData.playback.item.duration_ms - ttlMs;
+    }
+  } else {
+    const playback = (await getCurrentlyPlayingTrack()) || {
+      is_playing: false,
+    };
+    const queue = (await getQueue()).queue.filter((track) => "album" in track);
+    const recent = (await getRecentlyPlayedTracks()).items.map(
+      (item) => item.track
+    );
+
+    dashboardData = { playback, queue, recent };
+
+    const expiresIn = playback.is_playing
+      ? Math.floor((playback.item.duration_ms - playback.progress_ms) / 1000)
+      : 300;
+
+    await redis.set("spotify_dashboard_data", dashboardData, { ex: expiresIn });
+  }
+
+  return dashboardData;
 };

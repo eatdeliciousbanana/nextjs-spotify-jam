@@ -53,6 +53,7 @@ import MoreDotIcon from "./more-dot.svg";
 import BellIcon from "./bell.svg";
 import ArtistIcon from "./artist.svg";
 import SearchIcon from "./search.svg";
+import MusicIcon from "./music.svg";
 
 export {
   DownloadIcon,
@@ -110,4 +111,5 @@ export {
   ChatIcon,
   ArtistIcon,
   SearchIcon,
+  MusicIcon,
 };
