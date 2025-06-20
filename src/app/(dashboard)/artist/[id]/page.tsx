@@ -12,8 +12,8 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
       <ArtistTop artist={artist} />
 
       <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 2xl:grid-cols-5">
-        {albums.map((album, key) => (
-          <AlbumImage key={key} album={album} />
+        {albums.map((album) => (
+          <AlbumImage key={album.id} album={album} />
         ))}
       </div>
     </>

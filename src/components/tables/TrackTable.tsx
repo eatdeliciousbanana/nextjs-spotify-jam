@@ -65,9 +65,9 @@ const TrackTable = ({
 
             {/* Table Body */}
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-              {tracks.map((track, key) => (
+              {tracks.map((track) => (
                 <TableRow
-                  key={key}
+                  key={track.id}
                   onClick={() => setModalData({ isOpen: true, track })}
                   className="hover:bg-gray-100 dark:hover:bg-white/[0.05]"
                 >
@@ -94,9 +94,9 @@ const TrackTable = ({
                         {track.name}
                       </span>
                       <span className="block text-gray-500 text-sm dark:text-gray-400">
-                        {track.artists.map((artist, key) => (
-                          <span key={key}>
-                            {key > 0 && ", "}
+                        {track.artists.map((artist, index) => (
+                          <span key={artist.id}>
+                            {index > 0 && ", "}
                             <Link
                               href={`/artist/${artist.id}`}
                               className="hover:underline"
@@ -153,8 +153,10 @@ const TrackTable = ({
                   {modalData.track.name}
                 </span>
                 <span className="block text-gray-500 text-sm dark:text-gray-400">
-                  {modalData.track.artists.map((artist, key) => (
-                    <span key={key}>{(key > 0 ? ", " : "") + artist.name}</span>
+                  {modalData.track.artists.map((artist, index) => (
+                    <span key={artist.id}>
+                      {(index > 0 ? ", " : "") + artist.name}
+                    </span>
                   ))}
                 </span>
               </div>

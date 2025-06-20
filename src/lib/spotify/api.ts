@@ -1,5 +1,3 @@
-"use server";
-
 import axios from "axios";
 import { Redis } from "@upstash/redis";
 import {
@@ -24,7 +22,7 @@ const SPOTIFY_SCOPES = [
 
 const redis = Redis.fromEnv();
 
-export const getAuthorizeUrl = async (state: string) => {
+export const getAuthorizeUrl = (state: string) => {
   return (
     "https://accounts.spotify.com/authorize?" +
     new URLSearchParams({
@@ -120,46 +118,35 @@ const getAccessToken = async () => {
   return accessToken;
 };
 
-export const getArtist = async (id: string): Promise<Artist> => {
+const sendRequest = async (
+  method: string,
+  uri: string,
+  params?: Record<string, string | number | boolean | undefined>
+) => {
   const token = await getAccessToken();
 
   const response = await axios({
-    method: "get",
-    url: `https://api.spotify.com/v1/artists/${id}`,
+    method,
+    url: "https://api.spotify.com/v1" + uri,
+    params,
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   return response.data;
+};
+
+export const getArtist = async (id: string): Promise<Artist> => {
+  return await sendRequest("get", `/artists/${id}`);
 };
 
 export const getArtistAlbums = async (id: string): Promise<Album[]> => {
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: `https://api.spotify.com/v1/artists/${id}/albums`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data.items;
+  return (await sendRequest("get", `/artists/${id}/albums`)).items;
 };
 
 export const getAlbum = async (id: string): Promise<Album> => {
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: `https://api.spotify.com/v1/albums/${id}`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
+  return await sendRequest("get", `/albums/${id}`);
 };
 
 export const search = async (
@@ -169,64 +156,22 @@ export const search = async (
   if (!q || !["artist", "album", "track"].includes(type)) {
     return {};
   }
-
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: "https://api.spotify.com/v1/search",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      q: q,
-      type: type,
-    },
+  return await sendRequest("get", "/search", {
+    q,
+    type,
   });
-
-  return response.data;
 };
 
 const getCurrentlyPlayingTrack = async (): Promise<PlaybackState> => {
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: "https://api.spotify.com/v1/me/player/currently-playing",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
+  return await sendRequest("get", "/me/player/currently-playing");
 };
 
 const getQueue = async (): Promise<Queue> => {
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: "https://api.spotify.com/v1/me/player/queue",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
+  return await sendRequest("get", "/me/player/queue");
 };
 
 const getRecentlyPlayedTracks = async (): Promise<RecentlyPlayedTracksPage> => {
-  const token = await getAccessToken();
-
-  const response = await axios({
-    method: "get",
-    url: "https://api.spotify.com/v1/me/player/recently-played",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response.data;
+  return await sendRequest("get", "/me/player/recently-played");
 };
 
 export const getDashboardData = async (): Promise<DashboardData> => {

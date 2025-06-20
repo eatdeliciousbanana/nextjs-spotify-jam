@@ -1,6 +1,6 @@
 "use server";
 
-import { getAuthorizeUrl } from "@/lib/spotify/api";
+import * as api from "@/lib/spotify/api";
 import crypto from "crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -13,5 +13,5 @@ export const redirectToSpotify = async () => {
   const state = generateRandomString(16);
   (await cookies()).set("spotify_auth_state", state);
 
-  redirect(await getAuthorizeUrl(state));
+  redirect(api.getAuthorizeUrl(state));
 };

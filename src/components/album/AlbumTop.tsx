@@ -25,9 +25,9 @@ const AlbumTop = ({ album }: { album: Album }) => {
             </h4>
             <span className="text-base">
               <span className="text-gray-800 dark:text-white/90">
-                {album.artists.map((artist, key) => (
-                  <span key={key}>
-                    {key > 0 && ", "}
+                {album.artists.map((artist, index) => (
+                  <span key={artist.id}>
+                    {index > 0 && ", "}
                     <Link
                       href={`/artist/${artist.id}`}
                       className="hover:underline"

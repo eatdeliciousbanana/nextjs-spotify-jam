@@ -17,16 +17,16 @@ const Page = async (props: {
 
       {result.artists && (
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 2xl:grid-cols-5">
-          {result.artists.items.map((artist, key) => (
-            <ArtistImage key={key} artist={artist} />
+          {result.artists.items.map((artist) => (
+            <ArtistImage key={artist.id} artist={artist} />
           ))}
         </div>
       )}
 
       {result.albums && (
         <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 2xl:grid-cols-5">
-          {result.albums.items.map((album, key) => (
-            <AlbumImage key={key} album={album} showArtist={true} />
+          {result.albums.items.map((album) => (
+            <AlbumImage key={album.id} album={album} showArtist={true} />
           ))}
         </div>
       )}

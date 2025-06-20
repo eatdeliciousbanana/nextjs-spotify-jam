@@ -24,9 +24,9 @@ const Playback = ({ playback }: { playback: PlaybackState }) => {
                   {playback.item.name}
                 </h4>
                 <span className="text-base text-gray-800 dark:text-white/90">
-                  {playback.item.artists.map((artist, key) => (
-                    <span key={key}>
-                      {key > 0 && ", "}
+                  {playback.item.artists.map((artist, index) => (
+                    <span key={artist.id}>
+                      {index > 0 && ", "}
                       <Link
                         href={`/artist/${artist.id}`}
                         className="hover:underline"

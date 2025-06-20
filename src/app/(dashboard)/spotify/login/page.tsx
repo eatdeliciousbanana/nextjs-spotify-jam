@@ -15,7 +15,7 @@ const Page = async () => {
             size="sm"
             variant="primary"
             className="mt-4"
-            onClick={redirectToSpotify}
+            onClick={() => redirectToSpotify()}
           >
             Change Spotify Account
           </Button>
@@ -27,7 +27,7 @@ const Page = async () => {
             size="sm"
             variant="primary"
             className="mt-4"
-            onClick={redirectToSpotify}
+            onClick={() => redirectToSpotify()}
           >
             Login to Spotify
           </Button>
