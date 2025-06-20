@@ -1,6 +1,6 @@
 import AlbumImage from "@/components/album/AlbumImage";
 import ArtistImage from "@/components/artist/ArtistImage";
-import SearchForm from "@/components/form/SearchForm";
+import SearchForm from "@/components/search/SearchForm";
 import TrackTable from "@/components/tables/TrackTable";
 import { search } from "@/lib/spotify/api";
 

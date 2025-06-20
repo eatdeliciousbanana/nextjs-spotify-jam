@@ -1,6 +1,5 @@
+import LoginButton from "@/components/login/LoginButton";
 import Alert from "@/components/ui/alert/Alert";
-import Button from "@/components/ui/button/Button";
-import { redirectToSpotify } from "@/lib/spotify/actions";
 import { refreshTokenExists } from "@/lib/spotify/api";
 
 const Page = async () => {
@@ -10,27 +9,11 @@ const Page = async () => {
     <>
       {isLogin ? (
         <Alert variant="success" title="You are logged in to Spotify.">
-          <Button
-            type="button"
-            size="sm"
-            variant="primary"
-            className="mt-4"
-            onClick={() => redirectToSpotify()}
-          >
-            Change Spotify Account
-          </Button>
+          <LoginButton>Change Spotify Account</LoginButton>
         </Alert>
       ) : (
         <Alert variant="warning" title="You are not logged in to Spotify.">
-          <Button
-            type="button"
-            size="sm"
-            variant="primary"
-            className="mt-4"
-            onClick={() => redirectToSpotify()}
-          >
-            Login to Spotify
-          </Button>
+          <LoginButton>Login to Spotify</LoginButton>
         </Alert>
       )}
     </>
