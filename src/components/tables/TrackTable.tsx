@@ -14,6 +14,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
+import { addItemToPlaybackQueue } from "@/lib/spotify/actions";
 
 const TrackTable = ({
   tracks,
@@ -170,7 +171,15 @@ const TrackTable = ({
               >
                 Close
               </Button>
-              <Button type="button" size="sm">
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => {
+                  if (modalData.track) {
+                    addItemToPlaybackQueue(modalData.track.uri);
+                  }
+                }}
+              >
                 Request
               </Button>
             </div>

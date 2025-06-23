@@ -76,3 +76,15 @@ export const setPlaybackVolume = async (volumePercent: number) => {
 
   redirect("/player");
 };
+
+export const addItemToPlaybackQueue = async (uri: string) => {
+  try {
+    await api.addItemToPlaybackQueue(uri);
+    await setFlash("success", "Track added to queue successfully.");
+  } catch (error) {
+    console.log(error);
+    await setFlash("error", "Failed to add track to queue.");
+  }
+
+  redirect("/dashboard");
+};
