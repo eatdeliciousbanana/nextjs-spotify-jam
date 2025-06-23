@@ -4,6 +4,7 @@ import {
   Album,
   Artist,
   DashboardData,
+  Device,
   PlaybackState,
   Queue,
   RecentlyPlayedTracksPage,
@@ -202,4 +203,36 @@ export const getDashboardData = async (): Promise<DashboardData> => {
   }
 
   return dashboardData;
+};
+
+const clearDashboardData = async () => {
+  await redis.del("spotify_dashboard_data");
+};
+
+export const getAvailableDevices = async (): Promise<Device[]> => {
+  return (await sendRequest("get", "/me/player/devices")).devices;
+};
+
+export const startPlayback = async () => {
+  await sendRequest("put", "/me/player/play");
+  await clearDashboardData();
+};
+
+export const pausePlayback = async () => {
+  await sendRequest("put", "/me/player/pause");
+  await clearDashboardData();
+};
+
+export const skipToNext = async () => {
+  await sendRequest("post", "/me/player/next");
+  await clearDashboardData();
+};
+
+export const skipToPrevious = async () => {
+  await sendRequest("post", "/me/player/previous");
+  await clearDashboardData();
+};
+
+export const setPlaybackVolume = async (volumePercent: number) => {
+  await sendRequest("put", `/me/player/volume?volume_percent=${volumePercent}`);
 };

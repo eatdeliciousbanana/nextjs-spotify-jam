@@ -7,6 +7,8 @@ interface InputProps {
   placeholder?: string;
   defaultValue?: string | number;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onMouseUp?: (e: React.MouseEvent<HTMLInputElement>) => void;
+  onTouchEnd?: (e: React.TouchEvent<HTMLInputElement>) => void;
   className?: string;
   min?: string;
   max?: string;
@@ -24,6 +26,8 @@ const Input: FC<InputProps> = ({
   placeholder,
   defaultValue,
   onChange,
+  onMouseUp,
+  onTouchEnd,
   className = "",
   min,
   max,
@@ -56,6 +60,8 @@ const Input: FC<InputProps> = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
         onChange={onChange}
+        onMouseUp={onMouseUp}
+        onTouchEnd={onTouchEnd}
         min={min}
         max={max}
         step={step}

@@ -1042,6 +1042,7 @@ export interface Device {
   name: string;
   type: string;
   volume_percent: number | null;
+  supports_volume: boolean;
 }
 
 export interface Devices {
