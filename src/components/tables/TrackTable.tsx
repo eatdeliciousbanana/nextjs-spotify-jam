@@ -177,6 +177,7 @@ const TrackTable = ({
                 onClick={() => {
                   if (modalData.track) {
                     addItemToPlaybackQueue(modalData.track.uri);
+                    closeModal();
                   }
                 }}
               >

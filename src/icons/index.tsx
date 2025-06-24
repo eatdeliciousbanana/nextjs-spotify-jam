@@ -58,6 +58,7 @@ import ComputerIcon from "./computer.svg";
 import SmartphoneIcon from "./smartphone.svg";
 import DeviceIcon from "./device.svg";
 import PlayIcon from "./play.svg";
+import PlayCircleIcon from "./play-circle.svg";
 import PauseIcon from "./pause.svg";
 import SkipNextIcon from "./skip-next.svg";
 import SkipPreviousIcon from "./skip-previous.svg";
@@ -67,6 +68,7 @@ import FlashErrorIcon from "./flash-error.svg";
 import FlashWarningIcon from "./flash-warning.svg";
 import FlashInfoIcon from "./flash-info.svg";
 import FlashCloseIcon from "./flash-close.svg";
+import LogoIcon from "./logo.svg";
 
 export {
   DownloadIcon,
@@ -129,6 +131,7 @@ export {
   SmartphoneIcon,
   DeviceIcon,
   PlayIcon,
+  PlayCircleIcon,
   PauseIcon,
   SkipNextIcon,
   SkipPreviousIcon,
@@ -138,4 +141,5 @@ export {
   FlashWarningIcon,
   FlashInfoIcon,
   FlashCloseIcon,
+  LogoIcon,
 };

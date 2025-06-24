@@ -32,7 +32,7 @@ const SearchForm = ({
                 type="button"
                 size="sm"
                 variant={data.type === "artist" ? "primary" : "outline"}
-                className="sm:px-6 rounded-none first:rounded-l-lg last:rounded-r-lg"
+                className="sm:px-6 rounded-none rounded-l-lg ring-0! border-1 border-brand-500"
                 onClick={() =>
                   setData({
                     ...data,
@@ -46,7 +46,7 @@ const SearchForm = ({
                 type="button"
                 size="sm"
                 variant={data.type === "album" ? "primary" : "outline"}
-                className="sm:px-6 rounded-none first:rounded-l-lg last:rounded-r-lg"
+                className="sm:px-6 rounded-none ring-0! border-1 border-l-0 border-brand-500"
                 onClick={() =>
                   setData({
                     ...data,
@@ -60,7 +60,7 @@ const SearchForm = ({
                 type="button"
                 size="sm"
                 variant={data.type === "track" ? "primary" : "outline"}
-                className="sm:px-6 rounded-none first:rounded-l-lg last:rounded-r-lg"
+                className="sm:px-6 rounded-none rounded-r-lg ring-0! border-1 border-l-0 border-brand-500"
                 onClick={() =>
                   setData({
                     ...data,
@@ -75,13 +75,9 @@ const SearchForm = ({
         </div>
         <div className="space-y-6">
           <div className="flex">
-            <div className="px-2 py-2.5">
+            <div className="px-2 py-3">
               <button type="submit">
-                <SearchIcon
-                  width={26}
-                  height={26}
-                  className="fill-gray-500 dark:fill-gray-400"
-                />
+                <SearchIcon className="text-gray-500 dark:text-gray-400" />
               </button>
             </div>
             <div className="w-full">
