@@ -636,6 +636,9 @@ export interface SearchResult {
   tracks?: {
     items: Track[];
   };
+  playlists?: {
+    items: SimplifiedPlaylist[];
+  };
 }
 
 export interface ArtistSearchResult {

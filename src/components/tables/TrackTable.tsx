@@ -15,6 +15,7 @@ import Image from "next/image";
 import { Modal } from "@/components/ui/modal";
 import Button from "@/components/ui/button/Button";
 import { addItemToPlaybackQueue } from "@/lib/spotify/actions";
+import { ClockIcon } from "@/icons";
 
 const TrackTable = ({
   tracks,
@@ -57,9 +58,9 @@ const TrackTable = ({
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-4 py-3 font-medium text-gray-500 text-end text-sm dark:text-gray-400"
+                  className="px-4 py-3 flex justify-end font-medium text-gray-500 text-end text-sm dark:text-gray-400"
                 >
-                  Duration
+                  <ClockIcon width={22} height={22} />
                 </TableCell>
               </TableRow>
             </TableHeader>

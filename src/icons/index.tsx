@@ -20,6 +20,7 @@ import FlashWarningIcon from "./flash-warning.svg";
 import FlashInfoIcon from "./flash-info.svg";
 import FlashCloseIcon from "./flash-close.svg";
 import LogoIcon from "./logo.svg";
+import ClockIcon from "./clock.svg";
 
 export {
   GridIcon,
@@ -44,4 +45,5 @@ export {
   FlashInfoIcon,
   FlashCloseIcon,
   LogoIcon,
+  ClockIcon,
 };

@@ -26,7 +26,7 @@ const SearchForm = ({
     <Form onSubmit={handleSubmit}>
       <ComponentCard title="Search Fields">
         <div className="space-y-6">
-          <div className="max-w-full">
+          <div className="max-w-full overflow-auto">
             <div className="inline-flex items-center shadow-theme-xs">
               <Button
                 type="button"
@@ -60,7 +60,7 @@ const SearchForm = ({
                 type="button"
                 size="sm"
                 variant={data.type === "track" ? "primary" : "outline"}
-                className="sm:px-6 rounded-none rounded-r-lg ring-0! border-1 border-l-0 border-brand-500"
+                className="sm:px-6 rounded-none ring-0! border-1 border-l-0 border-brand-500"
                 onClick={() =>
                   setData({
                     ...data,
@@ -69,6 +69,20 @@ const SearchForm = ({
                 }
               >
                 Track
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant={data.type === "playlist" ? "primary" : "outline"}
+                className="sm:px-6 rounded-none rounded-r-lg ring-0! border-1 border-l-0 border-brand-500"
+                onClick={() =>
+                  setData({
+                    ...data,
+                    type: "playlist",
+                  })
+                }
+              >
+                Playlist
               </Button>
             </div>
           </div>

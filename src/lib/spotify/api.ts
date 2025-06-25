@@ -6,6 +6,7 @@ import {
   DashboardData,
   Device,
   PlaybackState,
+  Playlist,
   Queue,
   RecentlyPlayedTracksPage,
   SearchResult,
@@ -150,11 +151,15 @@ export const getAlbum = async (id: string): Promise<Album> => {
   return await sendRequest("get", `/albums/${id}`);
 };
 
+export const getPlaylist = async (id: string): Promise<Playlist> => {
+  return await sendRequest("get", `/playlists/${id}`);
+};
+
 export const search = async (
   q: string,
   type: string
 ): Promise<SearchResult> => {
-  if (!q || !["artist", "album", "track"].includes(type)) {
+  if (!q || !["artist", "album", "track", "playlist"].includes(type)) {
     return {};
   }
   return await sendRequest("get", "/search", {
