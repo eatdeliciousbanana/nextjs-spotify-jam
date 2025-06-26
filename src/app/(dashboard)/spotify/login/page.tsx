@@ -1,6 +1,6 @@
 import LoginButton from "@/components/login/LoginButton";
 import Alert from "@/components/ui/alert/Alert";
-import { refreshTokenExists } from "@/lib/spotify/api";
+import { refreshTokenExists } from "@/lib/redis";
 
 const Page = async () => {
   const isLogin = await refreshTokenExists();

@@ -1,6 +1,4 @@
 {
-  "name": "nextjs-spotify-jam",
-  "version": "2.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",

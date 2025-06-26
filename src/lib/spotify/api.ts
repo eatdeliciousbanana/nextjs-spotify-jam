@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Redis } from "@upstash/redis";
+import * as redis from "@/lib/redis";
 import {
   Album,
   Artist,
@@ -12,17 +12,15 @@ import {
   SearchResult,
 } from "@/types/spotify";
 
-const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string;
-const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET as string;
-const SPOTIFY_REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI as string;
+const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!;
+const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
+const SPOTIFY_REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI!;
 const SPOTIFY_SCOPES = [
   "user-read-playback-state",
   "user-modify-playback-state",
   "user-read-currently-playing",
   "user-read-recently-played",
 ];
-
-const redis = Redis.fromEnv();
 
 export const getAuthorizeUrl = (state: string) => {
   return (
@@ -56,32 +54,15 @@ export const requestAccessToken = async (code: string) => {
     }),
   });
 
-  await storeTokens(
+  await redis.storeTokens(
     response.data.access_token,
     response.data.expires_in,
     response.data.refresh_token
   );
 };
 
-const storeTokens = async (
-  accessToken: string,
-  expiresIn: number,
-  refreshToken?: string
-) => {
-  await redis.set("spotify_access_token", accessToken, { ex: expiresIn });
-  if (refreshToken) {
-    await redis.set("spotify_refresh_token", refreshToken);
-  }
-
-  return accessToken;
-};
-
-export const refreshTokenExists = async () => {
-  return (await redis.exists("spotify_refresh_token")) > 0;
-};
-
 const refreshAccessToken = async () => {
-  const refreshToken = await redis.get<string>("spotify_refresh_token");
+  const refreshToken = await redis.getRefreshToken();
 
   if (!refreshToken) {
     throw new Error("missing refresh token");
@@ -104,14 +85,14 @@ const refreshAccessToken = async () => {
     }),
   });
 
-  return await storeTokens(
+  return await redis.storeTokens(
     response.data.access_token,
     response.data.expires_in
   );
 };
 
 const getAccessToken = async () => {
-  let accessToken = await redis.get<string>("spotify_access_token");
+  let accessToken = await redis.getAccessToken();
 
   if (!accessToken) {
     accessToken = await refreshAccessToken();
@@ -181,11 +162,11 @@ const getRecentlyPlayedTracks = async (): Promise<RecentlyPlayedTracksPage> => {
 };
 
 export const getDashboardData = async (): Promise<DashboardData> => {
-  let dashboardData = await redis.get<DashboardData>("spotify_dashboard_data");
+  let dashboardData = await redis.getDashboardData();
 
   if (dashboardData) {
     if (dashboardData.playback.is_playing) {
-      const ttlMs = await redis.pttl("spotify_dashboard_data");
+      const ttlMs = await redis.getDashboardDataTtlMs();
       dashboardData.playback.progress_ms =
         dashboardData.playback.item.duration_ms - ttlMs;
     }
@@ -204,14 +185,10 @@ export const getDashboardData = async (): Promise<DashboardData> => {
       ? Math.floor((playback.item.duration_ms - playback.progress_ms) / 1000)
       : 300;
 
-    await redis.set("spotify_dashboard_data", dashboardData, { ex: expiresIn });
+    await redis.setDashboardData(dashboardData, expiresIn);
   }
 
   return dashboardData;
-};
-
-const clearDashboardData = async () => {
-  await redis.del("spotify_dashboard_data");
 };
 
 export const getAvailableDevices = async (): Promise<Device[]> => {
@@ -220,22 +197,22 @@ export const getAvailableDevices = async (): Promise<Device[]> => {
 
 export const startPlayback = async () => {
   await sendRequest("put", "/me/player/play");
-  await clearDashboardData();
+  await redis.clearDashboardData();
 };
 
 export const pausePlayback = async () => {
   await sendRequest("put", "/me/player/pause");
-  await clearDashboardData();
+  await redis.clearDashboardData();
 };
 
 export const skipToNext = async () => {
   await sendRequest("post", "/me/player/next");
-  await clearDashboardData();
+  await redis.clearDashboardData();
 };
 
 export const skipToPrevious = async () => {
   await sendRequest("post", "/me/player/previous");
-  await clearDashboardData();
+  await redis.clearDashboardData();
 };
 
 export const setPlaybackVolume = async (volumePercent: number) => {
@@ -244,5 +221,5 @@ export const setPlaybackVolume = async (volumePercent: number) => {
 
 export const addItemToPlaybackQueue = async (uri: string) => {
   await sendRequest("post", `/me/player/queue?uri=${uri}`);
-  await clearDashboardData();
+  await redis.clearDashboardData();
 };
