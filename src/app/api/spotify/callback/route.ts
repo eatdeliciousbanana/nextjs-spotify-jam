@@ -1,7 +1,8 @@
 import { setFlash } from "@/lib/flash";
 import { requestAccessToken } from "@/lib/spotify/api";
 import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
+import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
 
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
@@ -25,5 +26,5 @@ export const GET = async (request: NextRequest) => {
     }
   }
 
-  return NextResponse.redirect(new URL("/spotify/login", request.url));
+  redirect("/spotify/login");
 };

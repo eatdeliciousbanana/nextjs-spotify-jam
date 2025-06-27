@@ -30,6 +30,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  skipMiddlewareUrlNormalize: true,
 };
 
 export default nextConfig;
