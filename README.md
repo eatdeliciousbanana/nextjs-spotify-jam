@@ -53,3 +53,31 @@ Add the following environment variables:
 
 `AUTH_PASSWORD`
 
+#### Spotify API credentials
+
+* **Step1**: Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and login with your Spotify account.
+
+* **Step2**: Go to [your Dashboard](https://developer.spotify.com/dashboard), click on the `Create app` button and enter the following information:
+
+  **App name**: Your app name
+
+  **App description**: Your app description
+
+  **Redirect URIs**: If running app locally, set this to provided as follows:
+
+  `http://127.0.0.1:3000/api/spotify/callback`
+
+  When deploying to Vercel, add another redirect URL as follows:
+
+  `https://xyz.vercel.app/api/spotify/callback`
+
+* **Step3**: After creating app, copy the **Client ID** and **Client secret** and paste it into the `.env`.
+
+#### AUTH_SECRET
+
+Set this to a random string. Run `openssl rand -base64 32` and copy the value generated to the `.env`.
+
+#### AUTH_PASSWORD
+
+Set your password to enter the application. Only those who know this can join the jam.
+
