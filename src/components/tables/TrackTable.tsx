@@ -67,9 +67,9 @@ const TrackTable = ({
 
             {/* Table Body */}
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-              {tracks.map((track) => (
+              {tracks.map((track, index) => (
                 <TableRow
-                  key={track.id}
+                  key={index}
                   onClick={() => setModalData({ isOpen: true, track })}
                   className="hover:bg-gray-100 dark:hover:bg-white/[0.05]"
                 >
