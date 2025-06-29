@@ -1,4 +1,7 @@
 # nextjs-spotify-jam
+
+![img1](https://github.com/user-attachments/assets/e5d33b47-1e4b-4e82-bdb5-ad5865253f96)
+
 This is a Spotify Jam clone built using Next.js. Users can listen and add songs to the queue together with friends using one Spotify account. This app works in local system and on Vercel.
 
 ## Tech Stack
@@ -128,3 +131,29 @@ Set your password to enter the application. Only those who know this can join th
     Get from [AUTH_PASSWORD](#auth_password)
 
 * **Step4**: After saving environment variables and redeploy, go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) and open your app settings. Click Edit and add the same redirect URL as set in the **SPOTIFY_REDIRECT_URI** in Step3.
+
+## Usage
+
+Enter the password set in the `.env` to access the app.
+
+![img2](https://github.com/user-attachments/assets/7665ae14-551e-49b6-bf13-9ed6284acf2a)
+
+Go to Spotify Account page and login with your Spotify account.
+
+![img3](https://github.com/user-attachments/assets/20eb0321-ff50-42e6-a5ed-37fb5047d5f2)
+
+Go to Player page, turn on the device and start playback.
+
+![img4](https://github.com/user-attachments/assets/11f7fc6a-a4d3-4d6b-a4dd-7f96690b0958)
+
+Go to Search page and find track you want to request.
+
+![img5](https://github.com/user-attachments/assets/c1caaa1e-f76f-44df-b503-b54d0d00e018)
+
+Select a track and request.
+
+![img6](https://github.com/user-attachments/assets/2ed1a1e8-6289-42a8-82cd-11adc0a1cf9d)
+
+## License
+
+Distributed under the MIT License. See `LICENSE.md` for more information.
