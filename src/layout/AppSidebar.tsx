@@ -100,6 +100,7 @@ const AppSidebar: React.FC = () => {
                 className={`menu-item group ${
                   isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
                 }`}
+                prefetch={false}
               >
                 <span
                   className={`${
@@ -139,6 +140,7 @@ const AppSidebar: React.FC = () => {
                           ? "menu-dropdown-item-active"
                           : "menu-dropdown-item-inactive"
                       }`}
+                      prefetch={false}
                     >
                       {subItem.name}
                       <span className="flex items-center gap-1 ml-auto">
@@ -260,7 +262,7 @@ const AppSidebar: React.FC = () => {
           !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
         }`}
       >
-        <Link href="/dashboard" className="flex items-center">
+        <Link href="/dashboard" className="flex items-center" prefetch={false}>
           <LogoIcon />
           {(isExpanded || isHovered || isMobileOpen) && (
             <span className="ml-3 font-medium text-gray-800 text-lg dark:text-white/90">

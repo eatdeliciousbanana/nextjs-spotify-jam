@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const ArtistImage = ({ artist }: { artist: Artist }) => {
   return (
-    <Link href={`/artist/${artist.id}`}>
+    <Link href={`/artist/${artist.id}`} prefetch={false}>
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div className="flex items-center justify-center w-full bg-gray-100 rounded-xl dark:bg-gray-800">
           {artist.images[0] ? (

@@ -103,6 +103,7 @@ const TrackTable = ({
                               href={`/artist/${artist.id}`}
                               className="hover:underline"
                               onClick={(e) => e.stopPropagation()}
+                              prefetch={false}
                             >
                               {artist.name}
                             </Link>

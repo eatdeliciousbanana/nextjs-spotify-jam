@@ -138,6 +138,7 @@ const Alert: React.FC<AlertProps> = ({
             <Link
               href={linkHref}
               className="inline-block mt-3 text-sm font-medium text-gray-500 underline dark:text-gray-400"
+              prefetch={false}
             >
               {linkText}
             </Link>

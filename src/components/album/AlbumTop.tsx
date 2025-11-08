@@ -31,6 +31,7 @@ const AlbumTop = ({ album }: { album: Album }) => {
                     <Link
                       href={`/artist/${artist.id}`}
                       className="hover:underline"
+                      prefetch={false}
                     >
                       {artist.name}
                     </Link>
