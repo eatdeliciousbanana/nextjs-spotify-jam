@@ -216,10 +216,12 @@ export const skipToPrevious = async () => {
 };
 
 export const setPlaybackVolume = async (volumePercent: number) => {
-  await sendRequest("put", `/me/player/volume?volume_percent=${volumePercent}`);
+  await sendRequest("put", "/me/player/volume", {
+    volume_percent: volumePercent,
+  });
 };
 
 export const addItemToPlaybackQueue = async (uri: string) => {
-  await sendRequest("post", `/me/player/queue?uri=${uri}`);
+  await sendRequest("post", "/me/player/queue", { uri });
   await redis.clearDashboardData();
 };
